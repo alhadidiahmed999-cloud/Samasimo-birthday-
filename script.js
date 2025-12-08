@@ -1,0 +1,1 @@
+function openLetter(){document.getElementById('letter').classList.remove('hidden');}

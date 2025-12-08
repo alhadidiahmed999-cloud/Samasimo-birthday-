@@ -1,0 +1,6 @@
+body{background:#000;color:white;text-align:center;font-family:tahoma;}
+.title{margin-top:40px;font-size:28px;}
+.logo{width:90px;margin:20px auto;}
+.envelope{margin-top:50px;font-size:30px;cursor:pointer;}
+.letter{margin-top:20px;font-size:22px;}
+.hidden{display:none;}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+<script>
+function checkPass(){
+ let p=document.getElementById("p").value;
+ if(p==="1212"){location.href="birthday.html";}
+ else alert("❌ الباسورد غلط");
+}
+</script>
+</head>
+<body style="text-align:center;">
+<h1>أهلاً يا سماسيمو 🎀</h1>
+<input id="p" type="password" placeholder="اكتبي الباسورد"><br><br>
+<button onclick="checkPass()">دخول</button>
+</body>
+</html>
