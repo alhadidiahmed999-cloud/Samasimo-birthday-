@@ -1,356 +1,58 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>عيد ميلاد سماسيمو — VIP Realistic</title>
-
-<!-- خطوط -->
-<link href="https://fonts.googleapis.com/css2?family=Amiri&family=Tajawal:wght@300;400;600;800&display=swap" rel="stylesheet">
-
-<style>
-  :root{
-    --pink-1:#fff0f6;
-    --pink-2:#ffd6ec;
-    --pink-3:#ff7ab6;
-    --purple:#7b2b6b;
-    --gold:#d6b64a;
-    --ribbon:#d62839;
-    --paper-bg:#fffdf9;
-    --text:#2b0a1a;
-  }
-
-  *{box-sizing:border-box}
-  html,body{height:100%;margin:0;font-family:"Tajawal", "Amiri", sans-serif;background:linear-gradient(130deg,var(--pink-1),var(--pink-2) 30%,var(--pink-3) 65%, #fff 100%);color:var(--text);-webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
-
-  /* ناعمة لامعة */
-  .glow {
-    position:fixed; inset:0; pointer-events:none; z-index:0;
-    background:
-      radial-gradient(600px 300px at 10% 20%, rgba(255,255,255,0.08), transparent 10%),
-      radial-gradient(800px 400px at 90% 80%, rgba(255,240,210,0.06), transparent 12%);
-    mix-blend-mode: overlay;
-    opacity:0.95;
-  }
-
-  .wrap{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px;z-index:2;}
-
-  /* المشهد */
-  .scene{
-    width:860px; max-width:94vw; display:flex; gap:40px; align-items:center; justify-content:center; flex-direction:column;
-  }
-
-  .table{
-    width:760px; max-width:88vw; height:340px; border-radius:20px; background:
-    linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0.12));
-    box-shadow: 0 20px 60px rgba(14,6,20,0.12), inset 0 -6px 20px rgba(0,0,0,0.03);
-    display:flex; align-items:center; justify-content:center; position:relative; overflow:visible;
-    backdrop-filter: blur(4px);
-  }
-
-  /* subtle top text */
-  h1{font-size:28px;margin:8px 0 2px;color:#fff;text-shadow:0 6px 20px rgba(123,43,107,0.18);font-weight:800;letter-spacing:1px}
-  .sub{color:rgba(255,255,255,0.9);margin:0;font-size:14px}
-
-  /* الظرف */
-  .envelope-wrap{position:relative;width:420px;height:240px; display:flex; align-items:center; justify-content:center; z-index:6; pointer-events:auto;}
-  .envelope{
-    width:380px; height:200px; border-radius:12px; position:relative; background:linear-gradient(180deg,#fff6fb,#fff1f8);
-    box-shadow: 0 18px 40px rgba(10,6,12,0.18);
-    border:1px solid rgba(255,255,255,0.4);
-    display:flex; align-items:center; justify-content:center; cursor:pointer; transition: transform .22s ease;
-  }
-  .envelope:active{ transform: translateY(2px) }
-
-  /* flap triangle */
-  .envelope::before{
-    content:"";
-    position:absolute; top:-2px; left:50%; transform:translateX(-50%);
-    width:0; height:0;
-    border-left:190px solid transparent;
-    border-right:190px solid transparent;
-    border-bottom:110px solid var(--pink-3);
-    border-bottom-color: linear-gradient(180deg,var(--pink-3),var(--purple));
-    clip-path: polygon(0 0, 100% 0, 50% 100%);
-    transition: transform .8s cubic-bezier(.2,.9,.25,1);
-    z-index:8;
-  }
-
-  /* overlay ribbon */
-  .ribbon{
-    position:absolute; top:86px; left:50%; transform:translateX(-50%); z-index:12;
-    display:flex; align-items:center; gap:10px;
-  }
-  .ribbon .band{
-    height:44px; min-width:260px; padding:0 18px; border-radius:8px; background:linear-gradient(90deg,var(--ribbon),#c51b2a);
-    color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; letter-spacing:0.6px;
-    box-shadow:0 8px 20px rgba(198,40,60,0.18);
-    transform-origin:center;
-    transition: transform .45s ease, opacity .4s ease;
-  }
-  .ribbon .bow{
-    width:36px;height:36px;border-radius:8px;background:linear-gradient(90deg,#a40f23,#ff4b6e);box-shadow:0 8px 18px rgba(164,15,35,0.18);
-    display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:18px;
-    transform-origin:center;
-  }
-
-  /* band torn state */
-  .band.torn{ animation: tear .6s ease forwards; }
-  @keyframes tear{
-    0%{ transform:scaleY(1) translateY(0); opacity:1 }
-    60%{ transform:scaleY(.3) translateY(2px) rotate(-6deg); opacity:.7 }
-    100%{ transform:scaleY(.08) translateY(20px) rotate(-20deg); opacity:0 }
-  }
-
-  /* "open hint" text that appears after tear */
-  .open-hint{
-    position:absolute; top:150px; left:50%; transform:translateX(-50%); z-index:14;
-    background: rgba(255,255,255,0.06);
-    padding:8px 14px; border-radius:999px; color:#fff; font-weight:700; font-size:14px;
-    border:1px solid rgba(255,255,255,0.06); display:none;
-  }
-  .open-hint.show{ display:block }
-
-  /* paper (hidden until open) */
-  .paper{
-    width:340px; height:380px; position:absolute; bottom:14px; left:50%; transform:translateX(-50%) translateY(40px);
-    background:var(--paper-bg); border-radius:10px; box-shadow:0 16px 48px rgba(0,0,0,0.18);
-    padding:22px; opacity:0; transition: transform .9s cubic-bezier(.2,.9,.25,1), opacity .9s;
-    border: 3px solid rgba(214,182,90,0.9); /* gold border */
-    box-sizing:border-box; overflow:auto; z-index:9;
-  }
-  .paper.show{ transform:translateX(-50%) translateY(-18px); opacity:1 }
-
-  .paper h2{ margin:0 0 6px 0; color:var(--purple); font-size:20px; text-align:right; font-weight:700; }
-  .paper .msg{ text-align:right; white-space:pre-wrap; line-height:1.7; font-size:15px; color:var(--text) }
-
-  /* helper small controls (hidden mobile) */
-  .controls{ position:absolute; top:18px; right:18px; z-index:30; display:flex; gap:10px; align-items:center; }
-  .small-btn{ padding:8px 12px; border-radius:999px; background:rgba(255,255,255,0.08); color:#fff; border:1px solid rgba(255,255,255,0.06); font-weight:700; cursor:pointer }
-
-  /* responsive */
-  @media (max-width:540px){
-    .table{ height:420px; padding:18px }
-    .envelope{ width:320px; height:180px }
-    .envelope::before{ border-left:160px solid transparent; border-right:160px solid transparent; border-bottom:96px solid var(--pink-3); }
-    .paper{ width:86%; height:56vh; bottom:10px; padding:16px; }
-    .ribbon .band{ min-width:200px; height:40px; padding:0 12px }
-  }
-</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="glow" aria-hidden="true"></div>
+<div class="balloons"></div>
 
-<!-- 音楽 / الموسيقى -->
-<audio id="music" loop preload="auto">
-  <source src="music.mp3" type="audio/mpeg">
-  <!-- ضع مسار الأغنية التي تريده -->
-</audio>
+<div class="envelope-container">
+    <div class="ribbon" id="ribbon">❤️ اضغطي لإزالة الشريط ❤️</div>
 
-<div class="wrap">
-  <div style="text-align:center; margin-bottom:10px;">
-    <h1>عيد ميلاد سعيد — Smasimo 🎀</h1>
-    <p class="sub">لمسات بسيطة، مشهد واقعي، رسالة من القلب</p>
-  </div>
+    <div class="envelope" id="envelope">
+        <div class="envelope-cover"></div>
+        <div class="letter" id="letter">
+            <div class="gold-border"></div>
 
-  <div class="table" role="main" aria-labelledby="title">
-    <!-- controls -->
-    <div class="controls" aria-hidden="false">
-      <button class="small-btn" id="musicBtn">تشغيل/إيقاف الموسيقى</button>
-    </div>
+            <p class="message">
+            كل سنة وإنك بخير…  
+            ويمكن دي أغرب معايدة في حياتي…  
+            مش بس علشان الظروف اللي بينا…  
+            لكن علشان دي أول مرة أقولّك "عيد ميلاد سعيد" وأنا أصلاً مش في حياتك.
 
-    <div class="envelope-wrap" aria-hidden="false">
-      <div class="envelope" id="envelope" aria-pressed="false" tabindex="0" title="اضغط على الظرف">
-        <!-- ribbon -->
-        <div class="ribbon" id="ribbon">
-          <div class="band" id="bandText">كل سنة وانتي طيبة يا أميرة</div>
-          <div class="bow">❤</div>
+            بس مهما حصل…  
+            ولا سنة من عمري عدّت بدون ما أفتكر اليوم ده.  
+            يوم اتولدت فيه حدّ… كان وجوده بالنسبة ليا أجمل من أي عيد.
+
+            النهاردة عيد ميلادك…  
+            وأنا مش جاي أرجّع اللي راح…  
+            أنا جاي أقول الحقيقة بس…  
+            إنك وحشتيني.
+
+            وصدقيني…  
+            بين كل ليلة وليلة…  
+            كنت بلاقيكي في حلمي.  
+            والحلم كان بيرجعني لدقايق كنت فاكرها راحت…  
+            ويمكن كان أحسن من الحقيقة.
+
+            معرفش…  
+            بس أكيد لسه فيَّ حاجة منك…  
+            حاجة بتوجّع… وبتضحّك… وبتفتكر.
+
+            عيد ميلاد سعيد يا أقرب حدّ كان لقلبي…  
+            حتى لو مش معايا.
+            </p>
+
         </div>
-
-        <!-- hint -->
-        <div class="open-hint" id="openHint">افتحني</div>
-
-        <!-- realistic paper inside (hidden until open) -->
-        <div class="paper" id="paper" aria-hidden="true">
-          <h2>إلى سماسيمو… ❤️</h2>
-          <div class="msg" id="msg">
-كل سنة وإنك بخير…
-ويمكن دي أغرب معايدة في حياتي،
-مش بس علشان الظروف اللي بينا…
-لكن علشان دي أول مرة أقولّك "عيد ميلاد سعيد" وأنا أصلاً مش في حياتك.
-
-بس مهما حصل…
-ولا سنة من عمري عدّت بدون ما أفتكر اليوم ده.
-يوم اتولدت فيه حدّ… كان وجوده بالنسبة ليا أجمل من أي عيد.
-
-مكنتش ناوي أكتب…
-ولا أرجع…
-ولا أفتح أبواب كنتي إنتِ اللي قفلتيها.
-بس النهاردة… الدنيا زقّتني ليكي زقّة.
-وقالتلي:
-"افتكر… وافتكرهالي."
-
-فافتكرتك…
-افتكرت ضحكتك اللي كانت بتغيّر يومي كله،
-افتكرت كلامك، ومواقف صغيرة جدًا…
-بس أثّروا فيَّ بطريقة معملهاش حدّ.
-
-عارفة…
-أنا غلطت كتير، والوجع اللي حصل بينا مش بسيط.
-وانتي مشيتي… وكنت فاكر إن الوقت هيلمّ الموضوع.
-بس اللي حصل العكس…
-الوقت فضّل يوريني قدّ إيه وجودك كان نعمة.
-
-النهاردة عيد ميلادك…
-وأنا مش جاي أرجّع اللي راح، ولا أعمل دراما.
-أنا جاي أقول الحقيقة بس…
-إنك وحشتيني.
-
-مش وحشة رجوع…
-وحشة إنسانة كانت جزء من روحي،
-وحشة ضحكة، وحلاوة، وتفاصيل…
-مش عارف أكرهها مهما حاولت.
-
-ويمكن تتفاجئي…
-إن بعد كل الوقت ده،
-لسه في كلام كتير نفسي أقوله…
-ولسه في جزء مني… بيدعيلِك.
-
-وبين كل ليلة وليلة…
-كنت بلاقيكي في حلمي.
-عارفة؟
-الحلم كان بيرجعني لدقايق كنت فاكرها راحت.
-وكنت بصحى…
-وأقعد ساكت شوية،
-علشان الحلم كان شبه الحقيقة…
-ويمكن أحسن.
-
-آه… وبالنهاية:
-بحبّك؟
-آه…
-ومش هداري.
-لسه جوايا نفس الحب… أهدأ… أعمق… وأوضح.
-
-عيد ميلاد سعيد يا سماسيمو… حتى لو مش معايا. 🎂💗✨
-          </div>
-        </div>
-      </div>
-
-      <!-- small instruction under envelope -->
-      <div style="position:relative; text-align:center; margin-top:22px; z-index:6;">
-        <small style="color:rgba(0,0,0,0.35)">اضغط على الشريط الأحمر أولًا لفكه ثم اضغط على الظرف لعرض الرسالة</small>
-      </div>
     </div>
-  </div>
 </div>
 
-<script>
-/* عناصر DOM */
-const ribbonBand = document.getElementById('bandText');
-const bandWrap = document.getElementById('ribbon');
-const envelope = document.getElementById('envelope');
-const openHint = document.getElementById('openHint');
-const paper = document.getElementById('paper');
-const music = document.getElementById('music');
-const musicBtn = document.getElementById('musicBtn');
 
-/* حالة */
-let ribbonTorn = false;
-let opened = false;
-
-/* مساعدة تشغيل الصوت - يحاول بلا خطأ */
-function tryPlay(a){
-  a.play().catch(()=>{ /* بعض المتصفحات تمنع autoplay بدون تفاعل */ });
-}
-
-/* 1) عند الضغط على الشريط — يحدث تمزق */
-ribbonBand.addEventListener('click', (e) => {
-  if (ribbonTorn) return;
-  ribbonTorn = true;
-  ribbonBand.classList.add('torn');
-
-  // صوت تمزيق خفيف (سنستخدم تأثير بسيط عبر WebAudio إن لم يوجد ملف)
-  try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const o = ctx.createOscillator();
-    const g = ctx.createGain();
-    o.type = 'sawtooth';
-    o.frequency.value = 540;
-    g.gain.value = 0.0008;
-    o.connect(g); g.connect(ctx.destination);
-    o.start();
-    setTimeout(()=>{ o.stop(); ctx.close(); }, 140);
-  } catch(e){ /* تجاهل لو غير مدعوم */ }
-
-  // نخبّئ الشريط تدريجياً ثم نظهر hint
-  setTimeout(()=> {
-    bandWrap.style.opacity = '0';
-    setTimeout(()=> bandWrap.style.display = 'none', 450);
-    openHint.classList.add('show');
-  }, 350);
-});
-
-/* 2) بعد فك الشريط، المستخدم يضغط الظرف لفتح الورقة */
-envelope.addEventListener('click', (e) => {
-  // لو الشريط لم يتقطع بعد — نعرض لمحة صغيرة
-  if(!ribbonTorn){
-    // نبهره: نرج الشريط شويه
-    ribbonBand.animate([{transform:'translateY(0)'},{transform:'translateY(-6px)'},{transform:'translateY(0)'}], {duration:360});
-    return;
-  }
-  if(opened) return;
-  opened = true;
-
-  // صوت Pop بسيط
-  tryPlay(music); // الطلب: شغل الموسيقى عند الفتح
-  try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const o = ctx.createOscillator();
-    const g = ctx.createGain();
-    o.type = 'triangle';
-    o.frequency.value = 700;
-    g.gain.value = 0.002;
-    o.connect(g); g.connect(ctx.destination);
-    o.start();
-    setTimeout(()=>{ o.stop(); ctx.close(); }, 140);
-  } catch(e){ /* ignore */ }
-
-  // حركة الظرف: نقل و اظهار الورقة
-  envelope.classList.add('opening');
-  openHint.classList.remove('show');
-  // إظهار الورقة بعد تأخير بسيط
-  setTimeout(()=> {
-    paper.classList.add('show');
-    paper.setAttribute('aria-hidden','false');
-    // نأضمن أن النص قابل للقراءة (scroll to top)
-    paper.scrollTop = 0;
-  }, 420);
-});
-
-/* تشغيل/إيقاف الموسيقى يدوياً */
-musicBtn.addEventListener('click', ()=> {
-  if(music.paused){
-    tryPlay(music);
-    musicBtn.textContent = 'إيقاف الموسيقى';
-  } else {
-    music.pause();
-    musicBtn.textContent = 'تشغيل الموسيقى';
-  }
-});
-
-/* تفاعل لوحة المفاتيح: Enter يفتح الظرف (لو الشريط مفكوك) */
-document.addEventListener('keydown', (e) => {
-  if(e.key === 'Enter' && ribbonTorn && !opened){
-    envelope.click();
-  }
-});
-
-/* منع السحب و التحديد غير اللازم */
-document.addEventListener('dragstart', e=> e.preventDefault());
-document.addEventListener('selectstart', e=> e.preventDefault());
-
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
