@@ -1,321 +1,178 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>عيد ميلاد سماسيمو — من A</title>
-  <style>
-    :root{
-      --bg1: #05060a;
-      --pink: #ff7ab6;
-      --gold: #d4af37;
-      --emerald: #0a7f5f;
-      --white: #fff;
-    }
-    *{box-sizing:border-box;font-family: "Tahoma", "Segoe UI", Arial, sans-serif}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,#020203 0%, #091018 100%); color:var(--white)}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Birthday</title>
 
-    /* page layout */
-    .wrap{min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; padding:18px 12px 60px;}
-    header{width:100%; max-width:900px; display:flex; align-items:center; justify-content:space-between; gap:12px}
-    header h1{margin:0; font-size:18px; display:flex; align-items:center; gap:8px}
-    header .controls{display:flex; gap:8px; align-items:center}
-
-    /* poster area (top big image) */
-    .poster{
-      width:100%; max-width:900px; border-radius:14px; overflow:hidden; background:#000; box-shadow:0 8px 40px rgba(0,0,0,.6);
-      margin-top:12px;
-    }
-    .poster img{width:100%; display:block; height:auto; object-fit:cover;}
-
-    /* envelope / letter area */
-    .stage{width:100%; max-width:900px; margin-top:18px; display:flex; flex-direction:column; align-items:center; gap:18px}
-    .envelope-wrap{position:relative; width:320px; height:220px; perspective:1000px;}
-    .envelope{
-      width:100%; height:100%; position:absolute; left:0; top:0; transform-style:preserve-3d;
-      transition:transform .9s cubic-bezier(.2,.9,.25,1);
-      cursor:pointer;
-    }
-    .env-body{
-      position:absolute; inset:0; background:linear-gradient(180deg,#fff,#ffeef3); border-radius:12px; box-shadow:0 8px 30px rgba(0,0,0,.4);
-      display:flex; align-items:center; justify-content:center; transform-origin:center;
-      z-index:2; overflow:hidden;
-    }
-    .env-flap{
-      position:absolute; left:0; right:0; top:-40px; margin:auto; width:0; height:0;
-      border-left:160px solid transparent; border-right:160px solid transparent;
-      border-bottom:120px solid var(--pink); transform-origin:top center; transition: transform .9s cubic-bezier(.2,.9,.25,1);
-      z-index:3;
-    }
-    .envelope.open .env-flap{transform:rotateX(180deg)}
-    .envelope.open .env-body{transform:translateY(24px)}
-
-    /* letter paper (initially hidden under flap) */
-    .letter-paper{
-      width:85%; height:78%; background:#fff; border-radius:8px; padding:16px; text-align:right; color:#111;
-      box-shadow:0 6px 20px rgba(0,0,0,.25);
-      transform:translateY(60%); transition:transform .8s cubic-bezier(.2,.9,.25,1);
-      z-index:1;
-      overflow:auto;
-    }
-    .envelope.open .letter-paper{transform:translateY(-12%)} /* slide up when open */
-
-    /* letter content styling */
-    .letter-paper h2{margin:0 0 8px 0; color:var(--pink); font-size:20px}
-    .letter-paper p{margin:8px 0; line-height:1.6; font-size:15px; color:#111}
-
-    /* modal for full message (optional) */
-    .modal{
-      position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.6);
-      padding:20px; z-index:9999; opacity:0; pointer-events:none; transition:opacity .25s;
-    }
-    .modal.show{opacity:1; pointer-events:auto}
-    .card{width:100%; max-width:720px; background:#fff; color:#111; border-radius:12px; padding:18px; box-shadow:0 12px 50px rgba(0,0,0,.6); overflow:auto; max-height:80vh}
-    .card h3{margin-top:0}
-    .card .close{display:inline-block;margin-top:12px;padding:8px 12px;border-radius:8px;border:none;background:linear-gradient(90deg,var(--pink),var(--gold));color:#111;font-weight:700;cursor:pointer}
-
-    /* balloons */
-    .balloons{position:fixed; inset:auto 0 0 0; height:50vh; pointer-events:none; z-index:50}
-    .balloon{
-      position:absolute; bottom:-120px; width:46px; height:60px; border-radius:50% 50% 45% 45%; display:flex; align-items:center; justify-content:center;
-      font-size:18px; color:#fff; transform-origin:center; animation:float linear infinite;
-      box-shadow:0 6px 18px rgba(0,0,0,.25);
-    }
-    .string{position:absolute; left:50%; bottom:-120px; width:2px; height:120px; background:rgba(255,255,255,.12); transform:translateX(-50%)}
-
-    /* different balloon colors */
-    .b1{background:var(--pink)}
-    .b2{background:var(--gold)}
-    .b3{background:var(--emerald)}
-    .b4{background:#6ec6ff}
-
-    @keyframes float {
-      0%{transform:translateY(0) rotate(-6deg)}
-      50%{transform:translateY(-40vh) rotate(6deg)}
-      100%{transform:translateY(-90vh) rotate(-6deg)}
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Tajawal", sans-serif;
+        background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+        overflow-x: hidden;
+        height: 100vh;
+        color: #4a0033;
     }
 
-    /* play button small */
-    .audio-control{display:flex; gap:8px; align-items:center; background:rgba(255,255,255,.04); padding:6px 8px; border-radius:14px; border:1px solid rgba(255,255,255,.06)}
-    .audio-control button{background:linear-gradient(90deg,var(--pink),var(--gold)); border:none; padding:6px 10px; border-radius:8px; font-weight:700; color:#111; cursor:pointer}
-
-    /* responsive */
-    @media (max-width:420px){
-      .envelope-wrap{width:260px;height:190px}
-      .letter-paper{font-size:14px}
+    /* background balloons */
+    .balloon {
+        position: absolute;
+        bottom: -150px;
+        width: 80px;
+        height: 110px;
+        background: rgba(255, 182, 193, 0.8);
+        border-radius: 50%;
+        animation: floatUp 8s linear infinite;
     }
-  </style>
+
+    @keyframes floatUp {
+        0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+        100% { transform: translateY(-120vh) rotate(15deg); opacity: 0; }
+    }
+
+    /* envelope container */
+    .envelope-container {
+        margin: 120px auto;
+        width: 320px;
+        position: relative;
+        text-align: center;
+    }
+
+    .envelope {
+        width: 100%;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .envelope:hover {
+        transform: scale(1.05);
+    }
+
+    /* letter paper */
+    .letter {
+        width: 280px;
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 0 auto;
+        margin-top: -40px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.15);
+        line-height: 1.8;
+        font-size: 17px;
+        display: none;
+        animation: fadeIn 1.8s ease-in-out forwards;
+        white-space: pre-line;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .open-btn {
+        background: #ff4d79;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 25px;
+        color: #fff;
+        margin-top: 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .open-btn:hover {
+        background: #e63963;
+    }
+
+</style>
 </head>
+
 <body>
 
-  <div class="wrap">
-    <header>
-      <h1>🎉 Happy Birthday <span style="margin-inline:8px;color:var(--emerald)">Smasimo</span></h1>
-      <div class="controls">
-        <div class="audio-control" id="audiowrap">
-          <button id="playBtn">تشغيل الموسيقى</button>
-          <small style="opacity:.8;margin-inline-start:6px">music.mp3</small>
-        </div>
-      </div>
-    </header>
-
-    <!-- poster (you may keep your big poster image here if you like) -->
-    <div class="poster">
-      <!-- optional big image: keep existing poster image if you have one -->
-      <img src="images/file_00000000d4cc7208aa5951f66807e68f.png" alt="poster">
-    </div>
-
-    <!-- envelope stage -->
-    <div class="stage">
-      <div style="text-align:center;color:rgba(255,255,255,.85);font-size:14px">اضغطي على الظرف عشان تفتحي الرسالة 💌</div>
-
-      <div class="envelope-wrap" aria-hidden="false">
-        <div class="envelope" id="env">
-          <div class="env-flap"></div>
-          <div class="env-body">
-            <div class="letter-paper" id="paper">
-              <h2>إلى سماسيمو</h2>
-              <p style="color:#333; font-size:15px">اضغطي لعرض الرسالة كاملة...</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <button id="openFull" style="padding:10px 14px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--pink),var(--gold));color:#111;font-weight:700;cursor:pointer">
-        اضغطي هنا لفتح الرسالة بالكامل
-      </button>
-    </div>
-  </div>
-
-  <!-- balloons container -->
-  <div class="balloons" id="balloons"></div>
-
-  <!-- modal with full message -->
-  <div class="modal" id="modal">
-    <div class="card" role="dialog" aria-modal="true">
-      <h3>💌 رسالة من A</h3>
-      <div id="fullText" style="white-space:pre-wrap; line-height:1.7; color:#111; font-size:15px">
-        <!-- full message will be injected here -->
-      </div>
-      <div style="text-align:center">
-        <button class="close" id="closeModal">إغلاق</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- audio element (put music.mp3 in repo root or same folder) -->
-  <audio id="music" loop>
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
-
-  <script>
-    // ---------- Message text (put the full message here) ----------
-    const FULL_MESSAGE = `إلى سماسيمو… ❤️
-
-أنا عارف إنّ يمكن وجودي هنا فجأة يدوّخك أو يفتّح حاجات كنتي قافلاها من زمان…
-بس اليوم ده تحديدًا مقدرتش أعدّيه من غير ما أكتبلك.
-عيد ميلادك مش يوم عادي… ده اليوم اللي بيفكرني إني كنت يومًا ما محظوظ بوجودك حواليّ،
-حتى لو الظروف لعبت بينا ولخبطت كل حاجة.
-
-يمكن أكون غلطت، ويمكن أكون قصّرت… ويمكن كمان أكون اتأخرت.
-بس ولا ثانية من السنين اللي فاتت نسيتك فيها.
-كنتِ ومازلتِ الشخص اللي لما أفتكره قلبي يوقع مني،
-واللي مهما حاولت أبين إن حياتي ماشية… الحقيقة إن فيه مكان جوايا محدش عرف يملّيه بعدك.
-
-أنا مشتاق… مشتاق لحواراتك، لضحكتك، لعنادك،
-لطريقتك في الزعل اللي كنت بتهربّي منها وبتتكلمي بعدها كإن مفيش حاجة حصلت.
-مشتاق لوجودك اللي كان بيهون كل حاجة.
-
-لو كان ينفع أرجع الزمن…
-كنت هحضّن كل لحظة جمعتنا، كنت هسمعك أكتر، واحتويك أكتر،
-ومكنتش هسيب الدنيا تبعدنا بالشكل ده.
-
-وأعرف… أعرف إن الكلام ساعات بييجي متأخر،
-بس والله ما كان يوم يعدي من غير ما أندم…
-من غير ما أقول لنفسي:
-"ليه ماحافظتش عليها؟"
-"ليه ماكنتش باني معاها بدل ما أهدّ؟"
-
-بس برغم كل ده…
-أنا مش جاي أرجّع شيء غصب، ولا جاي أضغط عليكي…
-أنا بس جاي أقول "شكراً"…
-شكراً على كل ذكرى… كل ضحكة… كل وقت كنتِ فيه سند…
-وجاي أقول "آسف"…
-آسف على كل حاجة وجّعتك مني،
-آسف إني مكنتش الشخص اللي يستاهل قلبك وقتها.
-
-وفي يوم ميلادك…
-بتمنى لك الراحة اللي تستاهليها،
-والسعادة اللي تليق بقلب طيب زي قلبك،
-والضحكة اللي تفضلي لابساه طول حياتك.
-لو الدنيا خدتني بعيد… ماخدتش مكانك جوايا.
-
-ويمكن الزمن يتغير… ويمكن إحنا كمان…
-بس في حاجة واحدة ثابتة:
-إني عمري ما شفت حد زيّك، ولا حبيت زي ما حبيتّك.
-
-كل سنة وإنتِ بخير يا سماسيمو…
-ويا رب تكون السنة الجديدة أخف، ألطف، وأجمل عليك.
-
-– أحمد (A) ♡`;
-
-    // ---------- DOM refs ----------
-    const env = document.getElementById('env');
-    const paper = document.getElementById('paper');
-    const modal = document.getElementById('modal');
-    const fullText = document.getElementById('fullText');
-    const openFull = document.getElementById('openFull');
-    const closeModal = document.getElementById('closeModal');
-    const music = document.getElementById('music');
-    const playBtn = document.getElementById('playBtn');
-
-    // insert message into modal
-    fullText.textContent = FULL_MESSAGE;
-
-    // envelope click: animate open + reveal mini text
-    env.addEventListener('click', () => {
-      env.classList.toggle('open');
-      // if opened, show short preview text on the paper
-      if(env.classList.contains('open')){
-        paper.querySelector('h2').textContent = 'إلى سماسيمو';
-        paper.querySelector('p').textContent = 'ضغطتي على الظرف؟ افتحي الرسالة بالكامل!';
-        // try play music on user interaction
-        playMusic();
-      } else {
-        // closed
-        paper.querySelector('h2').textContent = '';
-        paper.querySelector('p').textContent = ' ';
-      }
-    });
-
-    // open full message modal
-    openFull.addEventListener('click', () => {
-      modal.classList.add('show');
-      // ensure envelope opens too
-      env.classList.add('open');
-      playMusic();
-    });
-
-    closeModal.addEventListener('click', () => modal.classList.remove('show'));
-
-    // music control - try to play/pause
-    function playMusic(){
-      music.play().catch(()=> {
-        // autoplay blocked: show play button text change
-        playBtn.textContent = 'شغّل الموسيقى';
-        // user needs to press play manually
-      });
-      playBtn.textContent = 'إيقاف';
+<!-- floating balloons -->
+<script>
+    for (let i = 0; i < 20; i++) {
+        let b = document.createElement("div");
+        b.classList.add("balloon");
+        let randomColor = ["#ff99c8", "#ffb3d9", "#ffcce6", "#ffe6f2"][Math.floor(Math.random()*4)];
+        b.style.left = Math.random()*100 + "%";
+        b.style.background = randomColor;
+        b.style.animationDelay = Math.random()*5 + "s";
+        document.body.appendChild(b);
     }
+</script>
 
-    playBtn.addEventListener('click', () => {
-      if(music.paused){
-        music.play();
-        playBtn.textContent = 'إيقاف';
-      } else {
-        music.pause();
-        playBtn.textContent = 'تشغيل الموسيقى';
-      }
-    });
+<div class="envelope-container">
+    <img src="https://i.ibb.co/NtL0qB5/envelope.png" class="envelope" id="envelope" />
 
-    // create floating balloons dynamically
-    const balloonColors = ['b1','b2','b3','b4'];
-    const balloonsRoot = document.getElementById('balloons');
+    <button class="open-btn" onclick="openLetter()">افتح الظرف 💌</button>
 
-    function createBalloon(i){
-      const b = document.createElement('div');
-      b.className = 'balloon ' + balloonColors[i % balloonColors.length];
-      // random horizontal start
-      const left = Math.random() * 90; // vw
-      b.style.left = left + 'vw';
-      b.style.animationDuration = (10 + Math.random()*10) + 's';
-      b.style.width = (36 + Math.random()*36) + 'px';
-      b.style.height = parseInt(b.style.width * 1.25) + 'px';
-      b.style.opacity = 0.98;
-      // optional small string
-      const s = document.createElement('div');
-      s.className = 'string';
-      b.appendChild(s);
-      balloonsRoot.appendChild(b);
+    <div class="letter" id="letter">
+كل سنة وإنك بخير…
+ويمكن دي أغرب معايدة في حياتي،
+مش بس علشان الظروف اللي بينا…
+لكن علشان دي أول مرة أقولّك “عيد ميلاد سعيد” وأنا أصلاً مش في حياتك.
 
-      // remove after animation (duration * 1000)
-      setTimeout(()=>{ b.remove(); }, (parseFloat(b.style.animationDuration) * 1000) + 600);
-    }
+بس مهما حصل…
+ولا سنة من عمري عدّت بدون ما أفتكر اليوم ده.
+يوم اتولدت فيه حدّ… كان وجوده بالنسبة ليا أجمل من أي عيد.
 
-    // spawn balloons every X seconds
-    setInterval(()=> {
-      // spawn 1-3 balloons each tick
-      const n = 1 + Math.floor(Math.random()*3);
-      for(let i=0;i<n;i++) createBalloon(i);
-    }, 1200);
+مكنتش ناوي أكتب…
+ولا أرجع…
+ولا أفتح أبواب كنتي إنتِ اللي قفلتيها.
+بس النهاردة… الدنيا زقّتني ليكي زقّة.
+وقالتلي:
+“افتكر… وافتكرهالي.”
 
-    // initial burst
-    for(let i=0;i<6;i++) setTimeout(()=>createBalloon(i), i*200);
+فافتكرتك…
+افتكرت ضحكتك اللي كانت بتغيّر يومي كله،
+افتكرت كلامك، ومواقف صغيرة جدًا…
+بس أثّروا فيَّ بطريقة معملهاش حدّ.
 
-    // small accessibility: close modal on background click
-    modal.addEventListener('click', (e)=>{
-      if(e.target === modal) modal.classList.remove('show');
-    });
-  </script>
+عارفة…
+أنا غلطت كتير، والوجع اللي حصل بينا مش بسيط.
+وانتي مشيتي… وكنت فاكر إن الوقت هيلمّ الموضوع.
+بس اللي حصل العكس…
+الوقت فضّل يوريني قدّ إيه وجودك كان نعمة.
+
+النهاردة عيد ميلادك…
+وأنا مش جاي أرجّع اللي راح، ولا أعمل دراما.
+أنا جاي أقول الحقيقة بس…
+إنك وحشتيني.
+
+مش وحشة رجوع…
+وحشة إنسانة كانت جزء من روحي،
+وتفاصيل… مش عارف أنساها.
+
+ويمكن تتفاجئي…
+إن بعد كل الوقت ده،
+لسه في كلام كتير نفسي أقوله…
+ولسه في جزء مني… بيدعيلِك.
+
+وبين كل ليلة وليلة…
+كنت بلاقيكي في حلمي.
+عارفة؟
+الحلم كان بيرجعني لدقايق كنت فاكرها راحت.
+وكنت بصحى…
+وأقعد ساكت شوية،
+علشان الحلم كان شبه الحقيقة…
+ويمكن أحسن.
+
+مش هقول بحبك…
+بس أكيد لسه فيني حاجة منك… لحد دلوقتي.
+
+عيد ميلاد سعيد يا أقرب حدّ كان لقلبي… حتى لو مش معايا.
+    </div>
+</div>
+
+<script>
+function openLetter() {
+    document.getElementById("letter").style.display = "block";
+}
+</script>
+
 </body>
-        </html>
+</html>
