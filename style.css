@@ -1,17 +1,87 @@
-body{background:#000;color:white;text-align:center;font-family:tahoma;}
-.title{margin-top:40px;font-size:28px;}
-.logo{width:90px;margin:20px auto;}
-.envelope{margin-top:50px;font-size:30px;cursor:pointer;}
-.letter{margin-top:20px;font-size:22px;}
-.hidden{display:none;}
-/* smoother balloon animation — 1 minute total */
-@keyframes floatSmooth {
-  0% { transform: translateY(0) rotate(-4deg); opacity: 1; }
-  30% { transform: translateY(-30vh) rotate(4deg); opacity: 1; }
-  60% { transform: translateY(-60vh) rotate(-3deg); opacity: .9; }
-  100% { transform: translateY(-100vh) rotate(3deg); opacity: 0; }
+/* ========== GENERAL PAGE STYLING ========== */
+body{
+  background:#000;
+  color:white;
+  text-align:center;
+  font-family:tahoma;
+  margin:0;
+  overflow-x:hidden;
 }
 
-.balloon {
-  animation: floatSmooth 60s linear forwards !important;
+.title{
+  margin-top:40px;
+  font-size:28px;
+}
+
+.logo{
+  width:90px;
+  margin:20px auto;
+}
+
+.envelope{
+  margin-top:50px;
+  font-size:30px;
+  cursor:pointer;
+}
+
+.letter{
+  margin-top:20px;
+  font-size:22px;
+}
+
+.hidden{
+  display:none;
+}
+
+/* ========== BALLOONS ========== */
+.balloons{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:100vh;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:20;
+}
+
+.balloon{
+  position:absolute;
+  bottom:-150px;
+  width:50px;
+  height:65px;
+  border-radius:50%;
+  opacity:0.95;
+  box-shadow:0 6px 20px rgba(255,255,255,.15);
+  animation: floatSmooth 60s linear forwards;
+}
+
+/* optional color variations */
+.b1{ background:#ff7ab6; }
+.b2{ background:#ffd658; }
+.b3{ background:#6cf7d5; }
+.b4{ background:#6ec6ff; }
+
+/* smooth & slow 60-second animation */
+@keyframes floatSmooth {
+  0% {
+    transform: translateY(0) rotate(-4deg);
+    opacity: 1;
+  }
+  25% {
+    transform: translateY(-25vh) rotate(4deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-55vh) rotate(-3deg);
+    opacity: .95;
+  }
+  75% {
+    transform: translateY(-80vh) rotate(3deg);
+    opacity: .8;
+  }
+  100% {
+    transform: translateY(-120vh) rotate(-2deg);
+    opacity: 0;
+  }
 }
