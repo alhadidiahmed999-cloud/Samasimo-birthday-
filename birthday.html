@@ -1,58 +1,63 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>عيد ميلاد — Smasimo (VIP)</title>
+
+<!-- خطوط -->
+<link href="https://fonts.googleapis.com/css2?family=Amiri&family=Tajawal:wght@300;400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+
 </head>
-
 <body>
+  <!-- لمعة خلفية -->
+  <div class="bg-gloss" aria-hidden="true"></div>
 
-<div class="balloons"></div>
+  <!-- عناصر تحكم صغيرة -->
+  <div class="top-controls">
+    <button id="musicBtn" class="ctrl">تشغيل/إيقاف الموسيقى</button>
+  </div>
 
-<div class="envelope-container">
-    <div class="ribbon" id="ribbon">❤️ اضغطي لإزالة الشريط ❤️</div>
+  <main class="scene" role="main" aria-labelledby="pageTitle">
+    <h1 id="pageTitle" class="title">عيد ميلاد سعيد — <span>Smasimo</span> 🎀</h1>
+    <p class="subtitle">لمسة هادية، رسالة من القلب.</p>
 
-    <div class="envelope" id="envelope">
-        <div class="envelope-cover"></div>
-        <div class="letter" id="letter">
-            <div class="gold-border"></div>
+    <section class="stage">
+      <!-- sparkle particles (css/JS) -->
+      <div id="sparkles" class="sparkles" aria-hidden="true"></div>
 
-            <p class="message">
-            كل سنة وإنك بخير…  
-            ويمكن دي أغرب معايدة في حياتي…  
-            مش بس علشان الظروف اللي بينا…  
-            لكن علشان دي أول مرة أقولّك "عيد ميلاد سعيد" وأنا أصلاً مش في حياتك.
-
-            بس مهما حصل…  
-            ولا سنة من عمري عدّت بدون ما أفتكر اليوم ده.  
-            يوم اتولدت فيه حدّ… كان وجوده بالنسبة ليا أجمل من أي عيد.
-
-            النهاردة عيد ميلادك…  
-            وأنا مش جاي أرجّع اللي راح…  
-            أنا جاي أقول الحقيقة بس…  
-            إنك وحشتيني.
-
-            وصدقيني…  
-            بين كل ليلة وليلة…  
-            كنت بلاقيكي في حلمي.  
-            والحلم كان بيرجعني لدقايق كنت فاكرها راحت…  
-            ويمكن كان أحسن من الحقيقة.
-
-            معرفش…  
-            بس أكيد لسه فيَّ حاجة منك…  
-            حاجة بتوجّع… وبتضحّك… وبتفتكر.
-
-            عيد ميلاد سعيد يا أقرب حدّ كان لقلبي…  
-            حتى لو مش معايا.
-            </p>
-
+      <!-- envelope area -->
+      <div class="envelope-wrap">
+        <!-- ribbon (click to tear) -->
+        <div class="ribbon" id="ribbon" role="button" tabindex="0" aria-pressed="false">
+          <div class="ribbon-band" id="ribbonBand">كل سنة وانتي طيبة يا أميرة</div>
+          <div class="ribbon-bow">❤</div>
         </div>
-    </div>
-</div>
 
+        <!-- hint shown after ribbon gone -->
+        <div id="openHint" class="open-hint" aria-hidden="true">اضغطي على الظرف لفتحه</div>
 
-<script src="script.js"></script>
+        <!-- envelope -->
+        <div class="envelope" id="envelope" role="button" tabindex="0" aria-pressed="false" title="اضغط لفتح الظرف">
+          <div class="env-cover"></div>
+        </div>
+
+        <!-- paper (hidden until open) -->
+        <article class="paper" id="paper" aria-hidden="true">
+          <h2 class="paper-title">إلى سماسيمو… ❤️</h2>
+          <div id="paperText" class="paper-text" aria-live="polite"></div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- موسيقى (ضع ملف music.mp3 في نفس المجلد أو عدّل المسار) -->
+  <audio id="music" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
+    <!-- إذا أردت ملف آخر غيّر المسار -->
+  </audio>
+
+  <script src="script.js"></script>
 </body>
 </html>
