@@ -1,63 +1,52 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>عيد ميلاد — Smasimo (VIP)</title>
-
-<!-- خطوط -->
-<link href="https://fonts.googleapis.com/css2?family=Amiri&family=Tajawal:wght@300;400;600;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎀 عيد ميلاد سعيد يا أميرة 🎀</title>
 <link rel="stylesheet" href="style.css">
-
+<audio id="music" src="music.mp3" preload="auto"></audio>
 </head>
+
 <body>
-  <!-- لمعة خلفية -->
-  <div class="bg-gloss" aria-hidden="true"></div>
 
-  <!-- عناصر تحكم صغيرة -->
-  <div class="top-controls">
-    <button id="musicBtn" class="ctrl">تشغيل/إيقاف الموسيقى</button>
-  </div>
+<div class="bg"></div>
 
-  <main class="scene" role="main" aria-labelledby="pageTitle">
-    <h1 id="pageTitle" class="title">عيد ميلاد سعيد — <span>Smasimo</span> 🎀</h1>
-    <p class="subtitle">لمسة هادية، رسالة من القلب.</p>
+<div class="envelope-container">
+    <div class="gift-ribbon" id="ribbon">
+        🎀 اسحبي الشريط لفوق 🎀
+    </div>
 
-    <section class="stage">
-      <!-- sparkle particles (css/JS) -->
-      <div id="sparkles" class="sparkles" aria-hidden="true"></div>
+    <div class="envelope" id="envelope">
+        <div class="envelope-cover"></div>
 
-      <!-- envelope area -->
-      <div class="envelope-wrap">
-        <!-- ribbon (click to tear) -->
-        <div class="ribbon" id="ribbon" role="button" tabindex="0" aria-pressed="false">
-          <div class="ribbon-band" id="ribbonBand">كل سنة وانتي طيبة يا أميرة</div>
-          <div class="ribbon-bow">❤</div>
+        <div class="letter" id="letter">
+            <div class="gold-border"></div>
+
+            <p class="message">
+                كل سنة وانتي طيبة…  
+                ويمكن دي أغرب معايدة بينا…  
+                بس اللي جوايا حقيقي.  
+
+                النهاردة عيد ميلادك…  
+                اليوم اللي اتولدت فيه أغلى واحدة عدّت في حياتي.  
+
+                مهما اللي بينا اتغير…  
+                عمري ما نسيت يوم زي ده.  
+
+                وانتي بتقري الرسالة دي…  
+                يمكن تضحكي… يمكن تفتكري…  
+                بس اللي أكيد…  
+                إنك لسه سايبة أثر جوايا.  
+
+                عيد ميلاد سعيد يا أميرة…  
+                حتى لو مش جنبي.  
+            </p>
+
         </div>
+    </div>
+</div>
 
-        <!-- hint shown after ribbon gone -->
-        <div id="openHint" class="open-hint" aria-hidden="true">اضغطي على الظرف لفتحه</div>
-
-        <!-- envelope -->
-        <div class="envelope" id="envelope" role="button" tabindex="0" aria-pressed="false" title="اضغط لفتح الظرف">
-          <div class="env-cover"></div>
-        </div>
-
-        <!-- paper (hidden until open) -->
-        <article class="paper" id="paper" aria-hidden="true">
-          <h2 class="paper-title">إلى سماسيمو… ❤️</h2>
-          <div id="paperText" class="paper-text" aria-live="polite"></div>
-        </article>
-      </div>
-    </section>
-  </main>
-
-  <!-- موسيقى (ضع ملف music.mp3 في نفس المجلد أو عدّل المسار) -->
-  <audio id="music" loop preload="auto">
-    <source src="music.mp3" type="audio/mpeg">
-    <!-- إذا أردت ملف آخر غيّر المسار -->
-  </audio>
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
