@@ -1,368 +1,181 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>عيد ميلاد سماسيمو — VIP</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>عيد ميلاد سماسيمو — VIP Realistic</title>
+
+<!-- خطوط -->
+<link href="https://fonts.googleapis.com/css2?family=Amiri&family=Tajawal:wght@300;400;600;800&display=swap" rel="stylesheet">
+
 <style>
-  /* -------------------------
-     Baseline & background
-     -------------------------*/
   :root{
-    --pink:#ff6fa8;
-    --pink-dark:#ff3b87;
-    --gold:#d4af37;
-    --emerald:#0a7f5f;
-    --bg1:#1b0216;
+    --pink-1:#fff0f6;
+    --pink-2:#ffd6ec;
+    --pink-3:#ff7ab6;
+    --purple:#7b2b6b;
+    --gold:#d6b64a;
+    --ribbon:#d62839;
+    --paper-bg:#fffdf9;
     --text:#2b0a1a;
   }
-  html,body{
-    height:100%;
-    margin:0;
-    padding:0;
-    font-family: "Tajawal", "Poppins", system-ui, sans-serif;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.02), transparent 10%),
-                linear-gradient(135deg,#ffdfe9 0%, #ffb3d6 30%, #ff8ac2 60%, #ff63b0 100%);
-    overflow:hidden;
-    color:var(--text);
-  }
 
-  /* subtle animated background sheen */
-  .bg-rays{
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:"Tajawal", "Amiri", sans-serif;background:linear-gradient(130deg,var(--pink-1),var(--pink-2) 30%,var(--pink-3) 65%, #fff 100%);color:var(--text);-webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
+
+  /* ناعمة لامعة */
+  .glow {
     position:fixed; inset:0; pointer-events:none; z-index:0;
-    background: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.06), transparent 8%),
-                radial-gradient(circle at 90% 80%, rgba(255,255,255,0.04), transparent 10%);
+    background:
+      radial-gradient(600px 300px at 10% 20%, rgba(255,255,255,0.08), transparent 10%),
+      radial-gradient(800px 400px at 90% 80%, rgba(255,240,210,0.06), transparent 12%);
     mix-blend-mode: overlay;
-    animation: bgPulse 12s ease-in-out infinite;
     opacity:0.95;
   }
-  @keyframes bgPulse {
-    0%{filter:brightness(1)}
-    50%{filter:brightness(1.06)}
-    100%{filter:brightness(1)}
+
+  .wrap{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px;z-index:2;}
+
+  /* المشهد */
+  .scene{
+    width:860px; max-width:94vw; display:flex; gap:40px; align-items:center; justify-content:center; flex-direction:column;
   }
 
-  /* container layout */
-  .wrap{
-    position:relative;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:18px;
-    z-index:2;
-    padding:28px;
-    box-sizing:border-box;
+  .table{
+    width:760px; max-width:88vw; height:340px; border-radius:20px; background:
+    linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0.12));
+    box-shadow: 0 20px 60px rgba(14,6,20,0.12), inset 0 -6px 20px rgba(0,0,0,0.03);
+    display:flex; align-items:center; justify-content:center; position:relative; overflow:visible;
+    backdrop-filter: blur(4px);
   }
 
-  h1{
-    margin:6px 0 0 0;
-    font-size:28px;
-    color:#fff;
-    text-shadow:0 6px 30px rgba(255,120,170,0.18);
-    letter-spacing:1px;
-  }
-  p.subtitle{
-    margin:0;
-    color:rgba(255,255,255,0.88);
-    opacity:0.9;
-    font-size:14px;
-  }
+  /* subtle top text */
+  h1{font-size:28px;margin:8px 0 2px;color:#fff;text-shadow:0 6px 20px rgba(123,43,107,0.18);font-weight:800;letter-spacing:1px}
+  .sub{color:rgba(255,255,255,0.9);margin:0;font-size:14px}
 
-  /* -------------------------
-     Envelope area (3D-ish)
-     -------------------------*/
-  .stage{
-    position:relative;
-    width:360px;
-    max-width:92vw;
-    height:420px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    perspective:1200px;
-    z-index:5;
+  /* الظرف */
+  .envelope-wrap{position:relative;width:420px;height:240px; display:flex; align-items:center; justify-content:center; z-index:6; pointer-events:auto;}
+  .envelope{
+    width:380px; height:200px; border-radius:12px; position:relative; background:linear-gradient(180deg,#fff6fb,#fff1f8);
+    box-shadow: 0 18px 40px rgba(10,6,12,0.18);
+    border:1px solid rgba(255,255,255,0.4);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; transition: transform .22s ease;
   }
+  .envelope:active{ transform: translateY(2px) }
 
-  /* 3D envelope box */
-  .envelope-3d{
-    width:320px;
-    height:200px;
-    position:relative;
-    transform-style:preserve-3d;
-    transition: transform 0.9s cubic-bezier(.2,.9,.25,1);
-  }
-
-  /* back of envelope for depth */
-  .env-back{
-    position:absolute; inset:0;
-    border-radius:14px;
-    background:linear-gradient(180deg,#fff,#ffeef3);
-    box-shadow: 0 18px 50px rgba(10,6,12,0.25), 0 6px 18px rgba(0,0,0,0.18);
-    transform: translateZ(-8px);
-  }
-
-  /* flap (triangular top) */
-  .env-flap{
-    position:absolute;
-    width:100%;
-    height:100%;
-    top:0; left:0;
-    transform-origin: top center;
-    transition: transform 0.9s cubic-bezier(.2,.9,.25,1);
+  /* flap triangle */
+  .envelope::before{
+    content:"";
+    position:absolute; top:-2px; left:50%; transform:translateX(-50%);
+    width:0; height:0;
+    border-left:190px solid transparent;
+    border-right:190px solid transparent;
+    border-bottom:110px solid var(--pink-3);
+    border-bottom-color: linear-gradient(180deg,var(--pink-3),var(--purple));
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transition: transform .8s cubic-bezier(.2,.9,.25,1);
     z-index:8;
-    pointer-events:none;
   }
 
-  .env-flap svg{
-    display:block;
-    width:100%;
-    height:100%;
-    border-radius:14px;
+  /* overlay ribbon */
+  .ribbon{
+    position:absolute; top:86px; left:50%; transform:translateX(-50%); z-index:12;
+    display:flex; align-items:center; gap:10px;
+  }
+  .ribbon .band{
+    height:44px; min-width:260px; padding:0 18px; border-radius:8px; background:linear-gradient(90deg,var(--ribbon),#c51b2a);
+    color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; letter-spacing:0.6px;
+    box-shadow:0 8px 20px rgba(198,40,60,0.18);
+    transform-origin:center;
+    transition: transform .45s ease, opacity .4s ease;
+  }
+  .ribbon .bow{
+    width:36px;height:36px;border-radius:8px;background:linear-gradient(90deg,#a40f23,#ff4b6e);box-shadow:0 8px 18px rgba(164,15,35,0.18);
+    display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:18px;
+    transform-origin:center;
   }
 
-  /* envelope body (front) */
-  .env-front{
-    position:absolute; inset:0;
-    border-radius:14px;
-    overflow:hidden;
-    z-index:6;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transform: translateZ(6px);
-  }
-  .env-front .band{
-    position:absolute; left:0; right:0; top:50%; height:48px;
-    transform:translateY(-50%);
-    background:linear-gradient(90deg, rgba(255,122,180,0.95), rgba(212,175,55,0.85));
-    opacity:0.95;
-    mix-blend-mode: screen;
+  /* band torn state */
+  .band.torn{ animation: tear .6s ease forwards; }
+  @keyframes tear{
+    0%{ transform:scaleY(1) translateY(0); opacity:1 }
+    60%{ transform:scaleY(.3) translateY(2px) rotate(-6deg); opacity:.7 }
+    100%{ transform:scaleY(.08) translateY(20px) rotate(-20deg); opacity:0 }
   }
 
-  /* open state classes */
-  .envelope-3d.open{
-    transform: rotateX(6deg) rotateY(0deg) translateY(-6px) scale(1.01);
+  /* "open hint" text that appears after tear */
+  .open-hint{
+    position:absolute; top:150px; left:50%; transform:translateX(-50%); z-index:14;
+    background: rgba(255,255,255,0.06);
+    padding:8px 14px; border-radius:999px; color:#fff; font-weight:700; font-size:14px;
+    border:1px solid rgba(255,255,255,0.06); display:none;
   }
-  .envelope-3d.open .env-flap{
-    transform: rotateX(180deg) translateY(-120px);
-  }
+  .open-hint.show{ display:block }
 
-  /* letter paper (initially hidden inside) */
+  /* paper (hidden until open) */
   .paper{
-    position:absolute;
-    width:86%;
-    left:7%;
-    top:12%;
-    height:80%;
-    background:#fff;
-    border-radius:8px;
-    box-shadow:0 10px 40px rgba(0,0,0,0.18);
-    transform-origin:center;
-    transform: translateZ(1px) translateY(34%);
-    opacity:0;
-    transition: transform 1.0s cubic-bezier(.2,.9,.25,1), opacity 1.0s;
-    padding:22px;
-    box-sizing:border-box;
-    color:#240014;
-    overflow:auto;
+    width:340px; height:380px; position:absolute; bottom:14px; left:50%; transform:translateX(-50%) translateY(40px);
+    background:var(--paper-bg); border-radius:10px; box-shadow:0 16px 48px rgba(0,0,0,0.18);
+    padding:22px; opacity:0; transition: transform .9s cubic-bezier(.2,.9,.25,1), opacity .9s;
+    border: 3px solid rgba(214,182,90,0.9); /* gold border */
+    box-sizing:border-box; overflow:auto; z-index:9;
   }
-  .envelope-3d.open .paper{
-    transform: translateZ(1px) translateY(-6%);
-    opacity:1;
-  }
+  .paper.show{ transform:translateX(-50%) translateY(-18px); opacity:1 }
 
-  /* paper header styling */
-  .paper h2{
-    margin:6px 0 8px 0;
-    color:var(--pink-dark);
-    font-size:20px;
-    text-align:right;
-  }
-  .paper .message{
-    white-space:pre-wrap;
-    font-size:15px;
-    line-height:1.6;
-    color:#2d0a16;
-    text-align:right;
-  }
+  .paper h2{ margin:0 0 6px 0; color:var(--purple); font-size:20px; text-align:right; font-weight:700; }
+  .paper .msg{ text-align:right; white-space:pre-wrap; line-height:1.7; font-size:15px; color:var(--text) }
 
-  /* open button overlay (for mobile) */
-  .open-overlay{
-    position:absolute; bottom:-48px; left:50%; transform:translateX(-50%);
-    z-index:20;
-    display:flex; gap:10px;
-  }
-  .btn{
-    background:linear-gradient(90deg,var(--pink),var(--pink-dark));
-    color:#fff;
-    border:none;
-    padding:10px 14px;
-    border-radius:12px;
-    font-weight:700;
-    cursor:pointer;
-    box-shadow:0 8px 24px rgba(255,90,150,0.14);
-  }
-  .btn.secondary{
-    background:linear-gradient(90deg,#fff,#fff);
-    color:var(--pink-dark);
-    border:1px solid rgba(0,0,0,0.06);
-  }
+  /* helper small controls (hidden mobile) */
+  .controls{ position:absolute; top:18px; right:18px; z-index:30; display:flex; gap:10px; align-items:center; }
+  .small-btn{ padding:8px 12px; border-radius:999px; background:rgba(255,255,255,0.08); color:#fff; border:1px solid rgba(255,255,255,0.06); font-weight:700; cursor:pointer }
 
-  /* -------------------------
-     Balloons (lots) and particles
-     -------------------------*/
-  .balloons-root{
-    position:fixed;
-    inset:auto 0 0 0;
-    height:60vh;
-    pointer-events:none;
-    z-index:3;
-  }
-
-  .balloon{
-    position:absolute;
-    bottom:-160px;
-    width:44px;
-    height:58px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:14px;
-    color:white;
-    box-shadow:0 8px 26px rgba(0,0,0,0.18);
-    transform-origin:center;
-    animation: floatSlow linear infinite;
-  }
-  .balloon .string{
-    position:absolute;
-    bottom:-84px;
-    left:50%;
-    width:2px;
-    height:84px;
-    background:rgba(255,255,255,0.12);
-    transform:translateX(-50%);
-  }
-  @keyframes floatSlow {
-    0%{ transform: translateY(0) rotate(-6deg); opacity:0.98;}
-    50%{ transform: translateY(-40vh) rotate(6deg); opacity:0.95;}
-    100%{ transform: translateY(-90vh) rotate(-6deg); opacity:0;}
-  }
-
-  /* confetti canvas overlay */
-  #confettiCanvas{
-    position:fixed; inset:0; pointer-events:none; z-index:7;
-  }
-
-  /* heart particles (small) */
-  .hearts{
-    position:fixed; inset:0; pointer-events:none; z-index:4;
-  }
-
-  /* music control small */
-  .controls-bar{
-    position:fixed; top:18px; left:18px; z-index:30; display:flex; gap:10px; align-items:center;
-  }
-  .controls-bar .small{
-    background:rgba(255,255,255,0.08);
-    padding:8px 10px;
-    border-radius:999px;
-    color:#fff;
-    font-weight:700;
-    border:1px solid rgba(255,255,255,0.06);
-  }
-
-  /* responsive tweaks */
-  @media (max-width:480px){
-    .stage{ height:380px }
-    .envelope-3d{ width:280px; height:180px }
-    .paper{ width:88%; padding:16px; font-size:14px }
+  /* responsive */
+  @media (max-width:540px){
+    .table{ height:420px; padding:18px }
+    .envelope{ width:320px; height:180px }
+    .envelope::before{ border-left:160px solid transparent; border-right:160px solid transparent; border-bottom:96px solid var(--pink-3); }
+    .paper{ width:86%; height:56vh; bottom:10px; padding:16px; }
+    .ribbon .band{ min-width:200px; height:40px; padding:0 12px }
   }
 </style>
 </head>
 <body>
 
-<!-- background rays -->
-<div class="bg-rays" aria-hidden="true"></div>
+<div class="glow" aria-hidden="true"></div>
 
-<!-- music + sound -->
-<audio id="bgMusic" loop preload="auto">
-  <!-- Replace src or upload music.mp3 in repo root -->
+<!-- 音楽 / الموسيقى -->
+<audio id="music" loop preload="auto">
   <source src="music.mp3" type="audio/mpeg">
-  Your browser does not support audio.
-</audio>
-<!-- small pop sound for open -->
-<audio id="popSound" preload="auto">
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_316c2545da.mp3?filename=click-1-6233.mp3" type="audio/mpeg">
+  <!-- ضع مسار الأغنية التي تريده -->
 </audio>
 
-<!-- controls top-left -->
-<div class="controls-bar" aria-hidden="false">
-  <button class="small btn" id="musicBtn">تشغيل الموسيقى</button>
-  <button class="small btn secondary" id="stopBalloons">إيقاف البالونات</button>
-</div>
-
-<div class="wrap" role="main" aria-labelledby="title">
-  <h1 id="title">عيد ميلاد سعيد يا <span style="color:#fff">Samasimo</span> 🎀</h1>
-  <p class="subtitle">إضغط على الظرف لفتح الرسالة — كل شيء مُعد بطريقة VIP</p>
-
-  <div class="stage" aria-hidden="false">
-    <!-- confetti canvas -->
-    <canvas id="confettiCanvas"></canvas>
-
-    <!-- 3D envelope -->
-    <div class="envelope-3d" id="envelope3d" role="button" aria-pressed="false" tabindex="0">
-        <div class="env-back" aria-hidden="true"></div>
-
-        <!-- flap is built with SVG so it looks nice and smooth -->
-        <div class="env-flap" id="flap">
-          <svg viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs>
-              <linearGradient id="g1" x1="0" x2="1">
-                <stop offset="0%" stop-color="#ffd9e8"/>
-                <stop offset="50%" stop-color="#ff7ab6"/>
-                <stop offset="100%" stop-color="#ff5ba0"/>
-              </linearGradient>
-              <filter id="f1" x="-50%" y="-50%" width="200%" height="200%">
-                <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#ff8ab0" flood-opacity="0.25"/>
-              </filter>
-            </defs>
-            <polygon points="0,0 100,0 50,85" fill="url(#g1)" filter="url(#f1)"/>
-          </svg>
-        </div>
-
-        <div class="env-front" aria-hidden="true">
-          <div class="band" aria-hidden="true"></div>
-        </div>
-
-        <!-- paper (inside) -->
-        <div class="paper" id="paper" aria-hidden="true">
-          <h2 style="text-align:right;margin-bottom:8px">إلى سماسيمو…</h2>
-          <div class="message" id="message"></div>
-        </div>
-    </div>
-
-    <div class="open-overlay" aria-hidden="true">
-      <button class="btn" id="openBtn">افتح الظرف 💌</button>
-      <button class="btn secondary" id="replayBtn" style="display:none">إعادة فتح</button>
-    </div>
+<div class="wrap">
+  <div style="text-align:center; margin-bottom:10px;">
+    <h1>عيد ميلاد سعيد — Smasimo 🎀</h1>
+    <p class="sub">لمسات بسيطة، مشهد واقعي، رسالة من القلب</p>
   </div>
-</div>
 
-<!-- balloons root -->
-<div class="balloons-root" id="balloonsRoot" aria-hidden="true"></div>
-<!-- hearts -->
-<div class="hearts" id="heartsRoot" aria-hidden="true"></div>
+  <div class="table" role="main" aria-labelledby="title">
+    <!-- controls -->
+    <div class="controls" aria-hidden="false">
+      <button class="small-btn" id="musicBtn">تشغيل/إيقاف الموسيقى</button>
+    </div>
 
-<script>
-/* ===============================
-   Variables & content (message)
-   =============================== */
-const MESSAGE_TEXT = `كل سنة وإنك بخير…
+    <div class="envelope-wrap" aria-hidden="false">
+      <div class="envelope" id="envelope" aria-pressed="false" tabindex="0" title="اضغط على الظرف">
+        <!-- ribbon -->
+        <div class="ribbon" id="ribbon">
+          <div class="band" id="bandText">كل سنة وانتي طيبة يا أميرة</div>
+          <div class="bow">❤</div>
+        </div>
+
+        <!-- hint -->
+        <div class="open-hint" id="openHint">افتحني</div>
+
+        <!-- realistic paper inside (hidden until open) -->
+        <div class="paper" id="paper" aria-hidden="true">
+          <h2>إلى سماسيمو… ❤️</h2>
+          <div class="msg" id="msg">
+كل سنة وإنك بخير…
 ويمكن دي أغرب معايدة في حياتي،
 مش بس علشان الظروف اللي بينا…
 لكن علشان دي أول مرة أقولّك "عيد ميلاد سعيد" وأنا أصلاً مش في حياتك.
@@ -419,279 +232,124 @@ const MESSAGE_TEXT = `كل سنة وإنك بخير…
 ومش هداري.
 لسه جوايا نفس الحب… أهدأ… أعمق… وأوضح.
 
-عيد ميلاد سعيد يا سماسيمو… حتى لو مش معايا. 🎂💗✨`;
+عيد ميلاد سعيد يا سماسيمو… حتى لو مش معايا. 🎂💗✨
+          </div>
+        </div>
+      </div>
 
-/* ===============================
-   Elements
-   =============================== */
-const envelope = document.getElementById('envelope3d');
-const flap = document.getElementById('flap');
+      <!-- small instruction under envelope -->
+      <div style="position:relative; text-align:center; margin-top:22px; z-index:6;">
+        <small style="color:rgba(0,0,0,0.35)">اضغط على الشريط الأحمر أولًا لفكه ثم اضغط على الظرف لعرض الرسالة</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* عناصر DOM */
+const ribbonBand = document.getElementById('bandText');
+const bandWrap = document.getElementById('ribbon');
+const envelope = document.getElementById('envelope');
+const openHint = document.getElementById('openHint');
 const paper = document.getElementById('paper');
-const messageEl = document.getElementById('message');
-const openBtn = document.getElementById('openBtn');
-const replayBtn = document.getElementById('replayBtn');
-const confettiCanvas = document.getElementById('confettiCanvas');
-const music = document.getElementById('bgMusic');
-const popSound = document.getElementById('popSound');
+const music = document.getElementById('music');
 const musicBtn = document.getElementById('musicBtn');
-const balloonsRoot = document.getElementById('balloonsRoot');
-const heartsRoot = document.getElementById('heartsRoot');
-const stopBalloons = document.getElementById('stopBalloons');
 
-let balloonsRunning = true;
+/* حالة */
+let ribbonTorn = false;
+let opened = false;
 
-/* ===============================
-   Utility: play audio safely
-   =============================== */
-function tryPlayAudio(a){
-  a.play().catch(()=>{/* autoplay blocked */});
+/* مساعدة تشغيل الصوت - يحاول بلا خطأ */
+function tryPlay(a){
+  a.play().catch(()=>{ /* بعض المتصفحات تمنع autoplay بدون تفاعل */ });
 }
 
-/* ===============================
-   Envelope open flow
-   =============================== */
-function openEnvelope(){
-  // add open class
-  envelope.classList.add('open');
-  envelope.setAttribute('aria-pressed','true');
-  // play pop sound
-  tryPlayAudio(popSound);
-  // start confetti burst
-  startConfettiBurst();
-  // start balloons (they already running)
-  // show paper after small delay
+/* 1) عند الضغط على الشريط — يحدث تمزق */
+ribbonBand.addEventListener('click', (e) => {
+  if (ribbonTorn) return;
+  ribbonTorn = true;
+  ribbonBand.classList.add('torn');
+
+  // صوت تمزيق خفيف (سنستخدم تأثير بسيط عبر WebAudio إن لم يوجد ملف)
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = 'sawtooth';
+    o.frequency.value = 540;
+    g.gain.value = 0.0008;
+    o.connect(g); g.connect(ctx.destination);
+    o.start();
+    setTimeout(()=>{ o.stop(); ctx.close(); }, 140);
+  } catch(e){ /* تجاهل لو غير مدعوم */ }
+
+  // نخبّئ الشريط تدريجياً ثم نظهر hint
   setTimeout(()=> {
+    bandWrap.style.opacity = '0';
+    setTimeout(()=> bandWrap.style.display = 'none', 450);
+    openHint.classList.add('show');
+  }, 350);
+});
+
+/* 2) بعد فك الشريط، المستخدم يضغط الظرف لفتح الورقة */
+envelope.addEventListener('click', (e) => {
+  // لو الشريط لم يتقطع بعد — نعرض لمحة صغيرة
+  if(!ribbonTorn){
+    // نبهره: نرج الشريط شويه
+    ribbonBand.animate([{transform:'translateY(0)'},{transform:'translateY(-6px)'},{transform:'translateY(0)'}], {duration:360});
+    return;
+  }
+  if(opened) return;
+  opened = true;
+
+  // صوت Pop بسيط
+  tryPlay(music); // الطلب: شغل الموسيقى عند الفتح
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = 'triangle';
+    o.frequency.value = 700;
+    g.gain.value = 0.002;
+    o.connect(g); g.connect(ctx.destination);
+    o.start();
+    setTimeout(()=>{ o.stop(); ctx.close(); }, 140);
+  } catch(e){ /* ignore */ }
+
+  // حركة الظرف: نقل و اظهار الورقة
+  envelope.classList.add('opening');
+  openHint.classList.remove('show');
+  // إظهار الورقة بعد تأخير بسيط
+  setTimeout(()=> {
+    paper.classList.add('show');
     paper.setAttribute('aria-hidden','false');
-    // show message typed or full (we use typing effect)
-    typeMessage(MESSAGE_TEXT, messageEl, 12, () => {
-      // finished typing
-      replayBtn.style.display = 'inline-block';
-    });
-    // attempt to play background music on interaction
-    tryPlayAudio(music);
-    // start gentle hearts
-    spawnHearts(12);
-  }, 700);
-
-  // disable open button (prevent double)
-  openBtn.disabled = true;
-}
-
-/* keyboard + click accessibility */
-openBtn.addEventListener('click', openEnvelope);
-envelope.addEventListener('click', openEnvelope);
-envelope.addEventListener('keydown', (e)=>{
-  if(e.key === 'Enter' || e.key === ' '){ openEnvelope(); }
+    // نأضمن أن النص قابل للقراءة (scroll to top)
+    paper.scrollTop = 0;
+  }, 420);
 });
 
-/* replay / reset flow */
-replayBtn.addEventListener('click', () => {
-  // reset
-  envelope.classList.remove('open');
-  messageEl.innerHTML = '';
-  replayBtn.style.display = 'none';
-  openBtn.disabled = false;
-  // small reset for confetti (burst again)
-  startConfettiBurst();
-});
-
-/* ===============================
-   Typing effect
-   =============================== */
-let typingTimer = null;
-function typeMessage(textContainer, targetEl, delay=10, cb){
-  // textContainer is string, targetEl is element
-  targetEl.innerHTML = '';
-  let i = 0;
-  function step(){
-    if(i >= textContainer.length){
-      if(cb) cb();
-      return;
-    }
-    const ch = textContainer[i++];
-    // escape < > for safety
-    targetEl.innerHTML += ch === '\n' ? '<br/>' : (ch === '<' ? '&lt;' : (ch === '>' ? '&gt;' : ch));
-    // scroll to bottom if overflows
-    targetEl.parentElement.scrollTop = targetEl.parentElement.scrollHeight;
-    typingTimer = setTimeout(step, delay + (ch === '\n' ? 60 : (ch === ' ' ? 0 : 6)));
-  }
-  step();
-}
-
-/* ===============================
-   Confetti (simple particles)
-   =============================== */
-const confettiCtx = confettiCanvas.getContext ? confettiCanvas.getContext('2d') : null;
-let confettiPieces = [];
-function resizeCanvas(){
-  confettiCanvas.width = window.innerWidth;
-  confettiCanvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
-
-function createConfettiPiece(x,y){
-  const colors = ['#ff6fa8','#ffd6e9','#ffd27a','#ffe6f2','#ff9acb','#ffffff'];
-  return {
-    x:x, y:y,
-    vx:(Math.random()*8 - 4),
-    vy:(Math.random()*-6 - 2),
-    r: 6 + Math.random()*8,
-    color: colors[Math.floor(Math.random()*colors.length)],
-    rot: Math.random()*360,
-    vr: (Math.random()*8 - 4)
-  };
-}
-function startConfettiBurst(){
-  // create a burst around envelope center
-  const rect = envelope.getBoundingClientRect();
-  const cx = rect.left + rect.width/2;
-  const cy = rect.top + rect.height/3;
-  for(let i=0;i<40;i++){
-    confettiPieces.push(createConfettiPiece(cx + (Math.random()*60-30), cy + (Math.random()*60-30)));
-  }
-  // auto-clear after some time
-  setTimeout(()=>{ confettiPieces = confettiPieces.slice(-80); }, 3500);
-}
-
-function confettiLoop(){
-  if(!confettiCtx) return;
-  confettiCtx.clearRect(0,0,confettiCanvas.width, confettiCanvas.height);
-  for(let i=confettiPieces.length-1;i>=0;i--){
-    const p = confettiPieces[i];
-    p.x += p.vx; p.y += p.vy; p.vy += 0.24; p.rot += p.vr;
-    confettiCtx.save();
-    confettiCtx.translate(p.x, p.y);
-    confettiCtx.rotate(p.rot * Math.PI / 180);
-    confettiCtx.fillStyle = p.color;
-    confettiCtx.fillRect(-p.r/2, -p.r/2, p.r, p.r*0.6);
-    confettiCtx.restore();
-    if(p.y > confettiCanvas.height + 60) confettiPieces.splice(i,1);
-  }
-  requestAnimationFrame(confettiLoop);
-}
-confettiLoop();
-
-/* ===============================
-   Balloons spawner
-   =============================== */
-let balloonTimers = [];
-function spawnBalloon(xPercent, color, delay, duration){
-  const b = document.createElement('div');
-  b.className = 'balloon';
-  b.style.left = xPercent + 'vw';
-  b.style.background = color;
-  b.style.animationDuration = (7 + Math.random()*8) + 's';
-  b.style.animationDelay = (delay||0) + 's';
-  b.innerHTML = '<div class="string"></div>';
-  balloonsRoot.appendChild(b);
-  // remove after animation (~duration)
-  setTimeout(()=>{ b.remove(); }, (parseFloat(b.style.animationDuration) * 1000) + 1200);
-}
-function startBalloons(intensity = 18){
-  if(!balloonsRunning) return;
-  for(let i=0;i<intensity;i++){
-    const left = Math.random()*90;
-    const palette = ['#ff9acb','#ff7ab8','#ffd6ec','#ffffff','#ffb3d9'];
-    spawnBalloon(left, palette[Math.floor(Math.random()*palette.length)], Math.random()*4);
-  }
-  // continue spawning
-  const t = setTimeout(()=> startBalloons(Math.max(6, Math.floor(intensity*0.9))), 1200 + Math.random()*1400);
-  balloonTimers.push(t);
-}
-startBalloons(22);
-
-/* stop balloons toggle */
-stopBalloons.addEventListener('click', ()=>{
-  balloonsRunning = !balloonsRunning;
-  if(!balloonsRunning){
-    // clear timers
-    balloonTimers.forEach(t=>clearTimeout(t));
-    balloonTimers = [];
-    // remove existing balloons
-    balloonsRoot.innerHTML = '';
-    stopBalloons.textContent = 'تشغيل البالونات';
-  } else {
-    startBalloons(18);
-    stopBalloons.textContent = 'إيقاف البالونات';
-  }
-});
-
-/* ===============================
-   Hearts particles
-   =============================== */
-function spawnHearts(count=8){
-  for(let i=0;i<count;i++){
-    const el = document.createElement('div');
-    el.style.position='absolute';
-    el.style.left = (20 + Math.random()*60) + 'vw';
-    el.style.top = (50 + Math.random()*30) + 'vh';
-    el.style.fontSize = (12 + Math.random()*18) + 'px';
-    el.style.opacity = 0.9;
-    el.style.transform = 'translateY(0) scale(1)';
-    el.style.zIndex = 4;
-    el.innerHTML = '💖';
-    heartsRoot.appendChild(el);
-    // animate
-    const dur = 5000 + Math.random()*4000;
-    el.animate([
-      { transform: 'translateY(0) scale(0.6)', opacity:0.9 },
-      { transform: 'translateY(-40vh) scale(1.2)', opacity:0 }
-    ], { duration: dur, easing: 'ease-out' });
-    setTimeout(()=> el.remove(), dur + 200);
-  }
-}
-
-/* ===============================
-   Music control
-   =============================== */
-let musicPlaying = false;
-musicBtn.addEventListener('click', ()=>{
+/* تشغيل/إيقاف الموسيقى يدوياً */
+musicBtn.addEventListener('click', ()=> {
   if(music.paused){
-    tryPlayAudio(music);
-    musicPlaying = true;
+    tryPlay(music);
     musicBtn.textContent = 'إيقاف الموسيقى';
   } else {
     music.pause();
-    musicPlaying = false;
     musicBtn.textContent = 'تشغيل الموسيقى';
   }
 });
 
-/* try to autoplay quietly if allowed */
-tryPlayAudio(music);
-
-/* ===============================
-   Initial state: hide message until opened
-   =============================== */
-messageEl.innerHTML = ''; // clear
-paper.style.opacity = 0;
-
-/* ===============================
-   Keyboard accessibility: open with Enter
-   =============================== */
-document.addEventListener('keydown', (e)=> {
-  if(e.key === 'Enter'){
-    const pressed = envelope.getAttribute('aria-pressed') === 'true';
-    if(!pressed) openEnvelope();
+/* تفاعل لوحة المفاتيح: Enter يفتح الظرف (لو الشريط مفكوك) */
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Enter' && ribbonTorn && !opened){
+    envelope.click();
   }
 });
 
-/* ===============================
-   Small polish: make sure canvas matches size
-   =============================== */
-function positionCanvas(){
-  confettiCanvas.style.width = window.innerWidth + 'px';
-  confettiCanvas.style.height = window.innerHeight + 'px';
-  confettiCanvas.width = window.innerWidth;
-  confettiCanvas.height = window.innerHeight;
-}
-window.addEventListener('resize', positionCanvas);
-positionCanvas();
+/* منع السحب و التحديد غير اللازم */
+document.addEventListener('dragstart', e=> e.preventDefault());
+document.addEventListener('selectstart', e=> e.preventDefault());
 
-/* ===============================
-   End of script
-   =============================== */
 </script>
 
 </body>
